@@ -10,8 +10,21 @@ class Ponto_TuristicoViewSet(ModelViewSet):
     serializer_class = PontoTuristicoSerializer
     #permission_classes = [IsAccountAdminOrReadOnly]
 
-    #def get_queryset(self):
-    #    return Pontos_Turisticos.objects.filter(aprovado=True)
+    def get_queryset(self):
+        id = self.request.query_params.get('id', None) # com o get podemos trabalhar com o none caso o ID nao seja passado
+        nome = self.request.query_params.get('nome', None)
+        descricao = self.request.query_params.get('descricao', None)
+        queryset = Pontos_Turisticos.objects.all() # nao executa o select * from
+
+        if id:
+            queryset = Pontos_Turisticos.objects.filter(id=id)
+        if nome:
+            queryset = Pontos_Turisticos.objects.filter(nome__iexatc=nome)
+
+        if descricao:
+            queryset = Pontos_Turisticos.objects.filter(descricao__iexact=descricao)
+
+        return queryset
 
     def list(self, request, *args, **kwargs):# GET   # get retorna uma lista de objetos
         return super(Ponto_TuristicoViewSet, self).list(request, *args, **kwargs)
