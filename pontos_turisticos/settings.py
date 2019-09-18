@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['pontosturisticos-app.herokuapp.com', 'localhost:8000']
+ALLOWED_HOSTS = ['pontosturisticos-app.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -135,3 +135,4 @@ REST_FRAMEWORK = {
 }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
